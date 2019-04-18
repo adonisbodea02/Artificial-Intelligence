@@ -1,0 +1,16 @@
+3,blue
+4,red
+2,yellow
+5,red
+9,blue
+9,yellow
+3,blue
+6,blue
+7,yellow
+4,blue
+2,green
+8,green
+5,blue
+7,red
+6,red
+10,yellow
