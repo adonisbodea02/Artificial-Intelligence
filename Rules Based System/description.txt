@@ -1,0 +1,22 @@
+The algorithm is structured in the following way:
+- a fuzzy set class which describes a set from fuzzy logic and whose membership function is a trapezoidal one (a
+  triangle membership function can be expressed through a trapezoidal one by equalling b and c)
+    - the set contains the name of the variable that is describing, the membership function and the point which describe
+    the trapeze
+    - based on its fields, it establishes the degree of membership to the set in question
+- a fuzzy variable class which describes a fuzzy variable
+    - it contains the sets which are part of the particular variable and a function which computes the degree of
+    membership to each set
+- a fuzzy rule class which is given the sets of two or more variables and computes a conjunction of their respective
+  fuzzified values
+- a fuzzy system class which describes a fuzzy system from fuzzy logic and computes the value asked by the problem given
+  correct parameters (in the specified interval) by making use of the Mamdani model and weighted mean method.
+
+Mamdani Model
+
+In the Mamdani model the strength of a rule is given by the conjuction of the fuzzified input values of the fuzzy sets.
+If two or more rules describe the same set of the result variable, the strongest (the biggest value) rule will be chosen
+as representative (the values are computed using the membership function of the sets). Since the device takes only crisp
+values as inputs, we have to use a defuzzifier to convert a fuzzy set to a crisp value.
+The defuzzifier in the algorithm is weighted mean. Each value contributes to the weighted sum multiplied by its degree
+of membership and the result is divided by the sum of the weights.

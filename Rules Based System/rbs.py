@@ -49,7 +49,6 @@ class FuzzyRule:
             for j in self.sets.values():
                 if j.variable == i:
                     value = min(value, j.fuzzify(inputs[i]))
-                    break
         return value
 
 
@@ -67,6 +66,10 @@ class FuzzySystem:
         self.variables[variable.name] = variable
 
     def compute(self, inputs):
+
+        for v in self.variables.values():
+            print(v.name, v.fuzzify(inputs[v.name]))
+
         output_dict = {}
         for i in self.output_variable.sets.keys():
             output_dict[i] = 0
@@ -74,7 +77,7 @@ class FuzzySystem:
         for i in self.rules:
             output_dict[i.name] = max(output_dict[i.name], i.evaluate(inputs))
 
-        print(output_dict)
+        print(self.output_variable.name, output_dict)
 
         gradient = {}
         for i in self.output_variable.sets.values():
@@ -92,15 +95,12 @@ class FuzzySystem:
                 if i.name not in gradient[i.c]:
                     gradient[i.c].append(i.name)
 
-        print(gradient)
-
         weighted_total = 0
         weights = 0
         for i in gradient.keys():
             value = 0
             for j in gradient[i]:
                 value = max(value, output_dict[j])
-            print(value)
             weighted_total += value*i
             weights += value
 
@@ -113,7 +113,7 @@ if __name__ == '__main__':
 
     s1 = FuzzySet("temperature", "very cold", trap_mf, -1000, -30, -20, 5)
     s2 = FuzzySet("temperature", "cold", trap_mf, -5, 0, 0, 10)
-    s3 = FuzzySet("temperature", "normal", trap_mf, 5, 10, 15, 20)
+    s3 = FuzzySet("temperature", "normally", trap_mf, 5, 10, 15, 20)
     s4 = FuzzySet("temperature", "warm", trap_mf, 15, 20, 20, 25)
     s5 = FuzzySet("temperature", "hot", trap_mf, 25, 30, 35, 1000)
 
@@ -222,7 +222,7 @@ if __name__ == '__main__':
     sys.add_rule(r14)
     sys.add_rule(r15)
 
-    print(sys.compute({"humidity": 75, "temperature": 10  }))
+    print(sys.compute({"humidity": 75, "temperature": 7}))
 
 
 
