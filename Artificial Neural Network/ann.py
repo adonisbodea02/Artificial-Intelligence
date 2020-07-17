@@ -204,7 +204,7 @@ def test_vertebra():
     iterations = []
 
     nn = Network([6, 7, 7, 3], sigmoid, der_sigmoid)
-    for i in range(500):
+    for i in range(200):
         iterations.append(i)
         e = []
         for j in range(len(u)):
